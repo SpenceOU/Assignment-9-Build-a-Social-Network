@@ -1,0 +1,25 @@
+# DESIGN MEMO
+#
+# 1. Why is a graph the right structure to represent a social network?
+# A social network is made of people and the relationships between them. In a
+# graph, each person is a node and each friendship is an edge, so the
+# structure matches the real thing directly. Friendships work both ways and
+# any person can connect to any other person, which a graph handles
+# naturally. It also grows easily, since adding a person or a friendship does
+# not require reorganizing anything.
+#
+# 2. Why wouldn't a list or tree work as well?
+# A list only stores a sequence, so it cannot show that one person is friends
+# with several others who may not know each other. A tree needs one root and
+# a parent and child hierarchy, but a social network has no top person and
+# people can be connected in loops, like Alex, Jordan, and Taylor all being
+# friends. Forcing that into a tree would mean leaving out real friendships.
+#
+# 3. What performance or structural trade-offs did I notice?
+# I used an adjacency list because most people are friends with only a small
+# fraction of the network. It stores only real friendships, so memory is
+# O(V + E), and adding a friendship is fast. Checking whether two people are
+# friends means searching a friends list, which is O(degree), where an
+# adjacency matrix could check in O(1). Printing the network visits every
+# person and every friend, so it takes O(V + E). A matrix would use O(V^2)
+# memory even though most cells would be empty.
